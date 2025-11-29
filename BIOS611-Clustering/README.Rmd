@@ -1,0 +1,24 @@
+---
+title: "README"
+output: html_document
+date: "2025-10-28"
+---
+
+# BIOS611 — Clustering assignment
+
+This repo contains code and figures for the BIOS611 clustering assignment (Gap statistic + spectral clustering).
+
+Structure:
+- `R/` : R scripts (data generation and analyses)
+- `data/` : generated datasets (ignored by git)
+- `figures/` : saved plots (ignored by git)
+- `docs/` : assignment PDF and notes
+
+Quick start:
+1. Install required R packages: `install.packages(c("cluster","ggplot2","plotly"))`
+2. Run Task 1 script: `Rscript R/task1_run.R`
+3. Run Task 2 script: `Rscript R/task2_run.R`
+4. Plots will appear in `figures/`.
+
+Contact: Carmen Martin
+
