@@ -1,0 +1,26 @@
+{
+    "id": "FE22D25B",
+    "path": "~/Datasci-611/FinalProject/data/netflix_analysis.R",
+    "project_path": "FinalProject/data/netflix_analysis.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1764446661014.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "44,0",
+        "scrollLine": "28"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1764018105,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1764018105,
+    "read_only": false,
+    "read_only_alternatives": []
+}
