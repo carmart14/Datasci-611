@@ -9,6 +9,8 @@
 library(ggplot2)
 library(scales)
 
+##======= Movies and Shows Plots===============================================
+
 # Load processed summary
 genre_summary <- readRDS("data/processed/genre_summary.rds")
 content_count <- readRDS("data/processed/content_count.rds")
@@ -109,6 +111,46 @@ p6 <- ggplot(country_genre_summary,
   )
 
 ggsave("figures/genre_rating_country.png", p6, width = 8, height = 8)
+
+
+
+
+
+
+##============================ User Analysis Plots =============================
+# Library Loading
+users_data <- readRDS("data/processed/clean_user_data.rds")
+age_models <- readRDS("data/processed/age_genre_models.rds")
+subscription_model <- readRDS("data/processed/subscription_model.rds")
+
+
+
+p7<- ggplot(users_data, aes(x = Favorite_Genre, y = Age, fill = Favorite_Genre)) +
+  geom_boxplot() +
+  facet_wrap(~ Country) +
+  theme_minimal() +
+  labs(
+    title = "Age Distribution Across Genres Within Countries",
+    x = "Favorite Genre",
+    y = "Age"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("figures/age_genre_by_country_plot.png", p7, width = 8, height = 5)
+
+
+p8 <- ggplot(users_data, aes(x = Subscription_Type, y = Watch_Time_Hours, fill = Subscription_Type)) +
+  geom_boxplot() +
+  facet_wrap(~ Country) +
+  theme_minimal() +
+  labs(
+    title = "Watch Time by Subscription Type Across Countries",
+    x = "Subscription Type",
+    y = "Watch Time (Hours)"
+  )
+
+ggsave("figures/watch_time_by_subscrip_plot.png", p8, width = 8, height = 5)
+
+
 
 
 

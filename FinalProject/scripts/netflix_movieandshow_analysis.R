@@ -20,12 +20,10 @@ library(lme4)
 library(reshape2)
 
 
-users_data <- readRDS(file = "data/processed/user_data.rds")
+
 mov_show_data <- readRDS(file = "data/processed/mov_show_data.rds")
 
-
-
-#
+# 
 mov_show_data <- mov_show_data |> 
   mutate(
     duration_num = as.numeric(str_extract(Duration, "\\d+")),
@@ -121,13 +119,6 @@ saveRDS(genre_mat, file = "data/processed/genre_mat.RDS")
 
 
 
-
-
-
-
-
-
-
 # ranking the shows =====
 
 
@@ -168,8 +159,6 @@ overall_rating <- data_numeric %>%
 
 
 
-
-
 country_type_summary <- data_numeric %>%
   group_by(Country, Type) %>%
   summarise(
@@ -194,74 +183,27 @@ country_genre_summary <- data_numeric %>%
 saveRDS(country_genre_summary, file = "data/processed/country_genre_summary.RDS")
 
 
+# signigicance testing 
 
+# Split by country
+country_list <- split(data_numeric, data_numeric$Country)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# results over all countries
-results_type <- mov_show_data |> 
-  group_by(Country) |> 
-  count(Type) |> 
-  pivot_wider(names_from = Type, values_from = n, values_fill = 0) %>%
-  mutate(
-    p_value = map2_dbl(`Movie`, `TV Show`, ~ {
-      tbl <- matrix(c(.x, .y), nrow = 2)
-      chisq.test(tbl)$p.value
-    })
-  )
-
-# split dataset by country
-country_list <- split(mov_show_data, mov_show_data$Country)
-
-genre_tests <- map(country_list, function(df) {
-  tab <- table(df$Genre, df$Type)
+# For each country, test whether Genre affects Rating
+genre_rating_tests <- map_df(names(country_list), function(cty) {
+  df <- country_list[[cty]]
   
-  # some small tables need Fisher’s exact test
-  if(any(tab < 5)) {
-    test <- fisher.test(tab)
-  } else {
-    test <- chisq.test(tab)
-  }
+  # Kruskal-Wallis test
+  test <- kruskal.test(Rating_num ~ Genre, data = df)
   
-  list(
-    test = test,
-    p_value = test$p.value,
-    table = tab
+  tibble(
+    Country = cty,
+    p_value = test$p.value
   )
 })
 
-prop_plot <- mov_show_data %>% 
-  group_by(Country, Genre, Type) %>% 
-  summarise(n = n(), .groups = "drop") %>% 
-  group_by(Country, Type) %>% 
-  mutate(prop = n / sum(n))
+print(genre_rating_tests, "unfortunalrt no significant in rating ")
 
-ann_data <- results_type %>% 
-  select(Country, p_value) %>% 
-  mutate(label = paste0("p = ", signif(p_value, 2)))
-
-ggplot(prop_plot, aes(x = Country, y = prop, fill = Genre)) +
-  geom_col(position = "fill") +
-  facet_wrap(~Type) +
-  geom_text(
-    data = ann_data,
-    aes(x = Country, y = 1.05, label = label),
-    inherit.aes = FALSE
-  ) +
-  coord_cartesian(ylim = c(0, 1.1), clip = "off") 
+ # no significance between genres for all given countries
 
 
 

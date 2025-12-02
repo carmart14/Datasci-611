@@ -20,8 +20,15 @@ users_data <- users_data |>  select(-User_ID)
 
 head(mov_show_data)
 mov_show_data <- mov_show_data |>  select(-Title)
- 
+ # cleaning the user data file
+
+
+clean_user_data <- users_data %>%
+  select(-User_ID, -Name, -Last_Login)
+
+
+
 
 # Save filtered data# Save filtered dataTitle
-saveRDS(users_data, file = "data/processed/user_data.rds")
+saveRDS(clean_user_data, file = "data/processed/clean_user_data.rds")
 saveRDS(mov_show_data, file ="data/processed/mov_show_data.rds")
