@@ -12,8 +12,7 @@ This ensures reproducibility and avoids hardcoding local paths.
 
 If the `.rds` files are not present, the report will stop and notify you.
 
-
- this was the plan but i couldnt get the paths to be right to save my life so now i have the cleaning just on the top of this script. :| 
+this was the plan but i couldnt get the paths to be right to save my life so now i have the cleaning just on the top of this script. :\|
 
 ```{r setup, include=FALSE}
 # 
@@ -85,11 +84,11 @@ Overall finding being there are no significant differences but there are definat
 
 We can also see here ( again not signigicant but interesting) there is such a difference in the TV/Movie ratings on the prefered content. See below for more. This is one of the areas we can actually see some variation within the data.
 
-![](images/age_genre_by_country_plot.png)
-
 ```{r}
 knitr::include_graphics("figures/genre_rating_country.png")
 ```
+
+![](images/age_genre_by_country_plot.png)
 
 # 3. B) Watch Time by Subscription Type
 
@@ -122,6 +121,8 @@ knitr::include_graphics("figures/genre_rating_country.png")
 
 ![](images/genre_rating_country-01.png)
 
+Here we can see some of the more granular changes within the countries and the ratings of the media they perfer. We can see here for example that Japan overall doesn't consume a lot of media that is rated Mature or R, its mosty seen in action. This compared to us here in the US having actions watched are rated pretty low, while our romance is rated M or R. Super interesting.
+
 # 4. B) Average Media Rating by Country
 
 ```{r}
@@ -131,6 +132,12 @@ knitr::include_graphics("figures/average_media_rating_country.png")
 
 ![](images/Average_media_rating_country.png)
 
+From here we are comparing the ratings for each of the types of media ( tv or movies) per county and how the ratings are. Canda watches the most overall mild media in both TV shows and movies while movies in Australia are incredibly more restricted than the TV show. the US ratings are pretty similar within the overall media (suprised but cool) overall media in the US is between PG and and PG13.
+
+KEY FOR REFERENCE
+
+rating_map \<- ( "G" = 1, "TV-G" = 1, "PG" = 2, "TV-PG" = 2, "PG-13" = 3, "TV-14" = 3, "R" = 4, "TV-MA" = 5 )
+
 # 4. C) Correlation Between Genre
 
 ```{r}
@@ -139,3 +146,5 @@ knitr::include_graphics("figures/correlation_genre_by_genre_plot.png")
 ```
 
 ![](images/correlation_genre_by_genre_plot.png)
+
+This last plot is just showing how likely the pairs of shows coincide. Here we can see the people who don't like Romance really like Action, and overall it seems like thriller is the most average-ly liked, not a lot of red or blue there. The value scale is not super drastic but cool to see that some of the genres that you'd think go together kinda do. Don't like horror? then you'll prolly like comedy, drama, possibly a little romance and even sci-fi.

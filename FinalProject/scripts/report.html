@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="carmenmartin">
+<meta name="author" content="carmen martin">
 
-<title>report</title>
+<title>Netflix and Analyze</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">report</h1>
+<h1 class="title">Netflix and Analyze</h1>
 </div>
 
 
@@ -93,7 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>carmenmartin </p>
+             <p>carmen martin </p>
           </div>
   </div>
     
@@ -111,6 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before running this report, the raw Netflix CSV files are processed using <code>load_data.R</code> to create cleaned <code>.rds</code> files in <code>data/processed/</code>.<br>
 This ensures reproducibility and avoids hardcoding local paths.</p>
 <p>If the <code>.rds</code> files are not present, the report will stop and notify you.</p>
+<p>this was the plan but i couldnt get the paths to be right to save my life so now i have the cleaning just on the top of this script. :|</p>
 </section>
 <section id="this-is-an-overall-report-that-summarizes-the-analysis-of-netflix-user-data-and-the-following-content-ive-investigated-the" class="level1">
 <h1>1. This is an overall report that summarizes the analysis of Netflix user data, and the following content I’ve investigated the :</h1>
@@ -201,7 +202,6 @@ This ensures reproducibility and avoids hardcoding local paths.</p>
 </div>
 <p>Overall finding being there are no significant differences but there are definatly some countries that really lack in their genre ranking variation. For example the US hs pretty diverse with the content we watch at a pval of 0.10 while Germany has a pvalue of 0.86. While both are non sig, this is showing me there is a larger divide in the US than Germany.</p>
 <p>We can also see here ( again not signigicant but interesting) there is such a difference in the TV/Movie ratings on the prefered content. See below for more. This is one of the areas we can actually see some variation within the data.</p>
-<p><img src="images/age_genre_by_country_plot.png" class="img-fluid"></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"figures/genre_rating_country.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -212,6 +212,7 @@ This ensures reproducibility and avoids hardcoding local paths.</p>
 </div>
 </div>
 </div>
+<p><img src="images/age_genre_by_country_plot.png" class="img-fluid"></p>
 </section>
 <section id="b-watch-time-by-subscription-type" class="level1">
 <h1>3. B) Watch Time by Subscription Type</h1>
@@ -282,6 +283,7 @@ This ensures reproducibility and avoids hardcoding local paths.</p>
 </div>
 </div>
 <p><img src="images/genre_rating_country-01.png" class="img-fluid"></p>
+<p>Here we can see some of the more granular changes within the countries and the ratings of the media they perfer. We can see here for example that Japan overall doesn’t consume a lot of media that is rated Mature or R, its mosty seen in action. This compared to us here in the US having actions watched are rated pretty low, while our romance is rated M or R. Super interesting.</p>
 </section>
 <section id="b-average-media-rating-by-country" class="level1">
 <h1>4. B) Average Media Rating by Country</h1>
@@ -296,6 +298,9 @@ This ensures reproducibility and avoids hardcoding local paths.</p>
 </div>
 </div>
 <p><img src="images/Average_media_rating_country.png" class="img-fluid"></p>
+<p>From here we are comparing the ratings for each of the types of media ( tv or movies) per county and how the ratings are. Canda watches the most overall mild media in both TV shows and movies while movies in Australia are incredibly more restricted than the TV show. the US ratings are pretty similar within the overall media (suprised but cool) overall media in the US is between PG and and PG13.</p>
+<p>KEY FOR REFERENCE</p>
+<p>rating_map &lt;- ( “G” = 1, “TV-G” = 1, “PG” = 2, “TV-PG” = 2, “PG-13” = 3, “TV-14” = 3, “R” = 4, “TV-MA” = 5 )</p>
 </section>
 <section id="c-correlation-between-genre" class="level1">
 <h1>4. C) Correlation Between Genre</h1>
@@ -310,6 +315,7 @@ This ensures reproducibility and avoids hardcoding local paths.</p>
 </div>
 </div>
 <p><img src="images/correlation_genre_by_genre_plot.png" class="img-fluid"></p>
+<p>This last plot is just showing how likely the pairs of shows coincide. Here we can see the people who don’t like Romance really like Action, and overall it seems like thriller is the most average-ly liked, not a lot of red or blue there. The value scale is not super drastic but cool to see that some of the genres that you’d think go together kinda do. Don’t like horror? then you’ll prolly like comedy, drama, possibly a little romance and even sci-fi.</p>
 </section>
 
 </main>
