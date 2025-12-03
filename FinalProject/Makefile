@@ -1,60 +1,67 @@
 #============================#
-# 1. Define targets          #
+# 1. Default Target          #
 #============================#
 
-# Default target
 all: report
 
+#============================#
+# Load and Clean Raw Data    #
+#============================#
+data/processed/clean_user_data.rds data/processed/mov_show_data.rds: \
+	scripts/load_data.R \
+	data/raw/netflix_users.csv \
+	data/raw/Netflix_Movies_and_TV_Shows.csv
+	Rscript scripts/load_data.R
 
 
-#------------------------------------#
-# Load and clean raw data
-#------------------------------------#
-data/processed/clean_user_data.rds data/processed/mov_show_data.rds: load_data.R \
-data/raw/netflix_users.csv data/raw/Netflix_Movies_and_TV_Shows.csv
-	Rscript load_data.R
-
-
-
-#----------------------------#
-# Analysis step
-#----------------------------#
-
-# Movies & Shows Analysis
+#============================#
+# Movies & Shows Analysis    #
+#============================#
 data/processed/content_count.rds \
 data/processed/avg_duration_summary.rds \
 data/processed/genre_mat.RDS \
 data/processed/country_type_summary.RDS \
-data/processed/country_genre_summary.RDS: netflix_moviesandshow_analysis.R \
-data/processed/mov_show_data.rds
-	Rscript netflix_moviesandshow_analysis.R
+data/processed/country_genre_summary.RDS: \
+        scripts/netflix_movieandshow_analysis.R \
+        data/processed/mov_show_data.rds
+	Rscript scripts/netflix_movieandshow_analysis.R
 
-# User Analysis
+#============================#
+# User Analysis              #
+#============================#
 data/processed/age_genre_summary.csv \
 data/processed/age_genre_anova.csv \
 data/processed/age_genre_models.rds \
 data/processed/watch_summary.csv \
 data/processed/subscription_two_way_anova.csv \
-data/processed/subscription_model.rds: netflix_user_analysis.R \
-data/processed/clean_user_data.rds
-	Rscript netflix_user_analysis.R
+data/processed/subscription_model.rds: \
+        scripts/netflix_user_analysis.R \
+        data/processed/clean_user_data.rds
+	Rscript scripts/netflix_user_analysis.R
 
+#============================#
+# Figures                    #
+#============================#
+figures/age_genre_by_country_plot.png \
+figures/watch_time_by_subscrip_plot.png: \
+        figures/plots.R \
+        data/processed/clean_user_data.rds \
+        data/processed/age_genre_models.rds \
+        data/processed/subscription_model.rds
+	Rscript figures/plots.R
 
-
-#----------------------------#
-# Figures step
-#----------------------------#
-figures/age_genre_plot.png figures/watch_time_plot.png: figures.R outputs/cleaned_data.rds outputs/age_genre_models.rds outputs/subscription_model.rds
-	Rscript figures.R
-
+#============================#
+# Report                     #
+#============================#
 #----------------------------#
 # Report step
 #----------------------------#
-report: figures/age_genre_plot.png figures/watch_time_plot.png report.Rmd
-	Rscript -e "rmarkdown::render('report.Rmd', output_file='report.html')"
+report: figures/age_genre_by_country_plot.png figures/watch_time_by_subscrip_plot.png scripts/report.qmd
+	quarto render scripts/report.qmd --to html --output report.html
 
-#----------------------------#
-# Clean step
-#----------------------------#
+
+#============================#
+# Clean                      #
+#============================#
 clean:
-	rm -rf outputs/* figures/* report.html
+	rm -rf data/processed/* figures/* report.html

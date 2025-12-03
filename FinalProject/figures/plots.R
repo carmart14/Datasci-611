@@ -6,17 +6,26 @@
 
 
 
+library(pheatmap)
+library(tidyverse)
 library(ggplot2)
+library(dplyr)
 library(scales)
+library(factoextra)
+library(purrr)
+library(lme4)
+library(reshape2)
+library(tidyr)
+library(dplyr)
 
 ##======= Movies and Shows Plots===============================================
 
 # Load processed summary
-genre_summary <- readRDS("data/processed/genre_summary.rds")
 content_count <- readRDS("data/processed/content_count.rds")
-genre_mat <- readDRS("data/processed/genre_mat.RDS")
+genre_mat <- readRDS("data/processed/genre_mat.RDS")
 country_genre_summary <- readRDS("data/processed/country_genre_summary.RDS")
 country_type_summary <- readRDS("data/processed/country_type_summary.RDS")
+mov_show_data <- readRDS("data/processed/mov_show_data.rds")
 
 # Create figures folder if it doesn't exist
 if(!dir.exists("figures")) dir.create("figures")

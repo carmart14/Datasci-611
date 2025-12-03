@@ -1,0 +1,8 @@
+# Ignore raw data and temporary files
+data/raw/*
+.Rproj.user
+*.Rhistory
+*.RData
+*.html
+*.qmd
+figures/*

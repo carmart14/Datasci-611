@@ -1,9 +1,25 @@
 # =============================================
 # Data Science Project 
-#
-#
+# This is a separate data set but also netflix
+#  Large Data for comparisons
 # ==============================================
 
+install.packages("umap")
+
+library(pheatmap)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(factoextra)
+library(purrr)
+library(lme4)
+library(reshape2)
+library(tidyr)
+library(dplyr)
+library(FactoMineR)
+library(factoextra)
+library(umap)
 
 users_data <- readRDS(file = "data/processed/clean_user_data.rds")
 #
@@ -76,26 +92,6 @@ write.csv(subscription_anova_clean, "data/processed/subscription_two_way_anova.c
 
 # Save model for later figure generation
 saveRDS(subscription_model, "data/processed/subscription_model.rds")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

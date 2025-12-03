@@ -5,10 +5,10 @@
 # 
 # ============================
 
-install.packages("factoextra")
-install.packages("pheatmap")
-
-
+# install.packages("factoextra")
+# install.packages("pheatmap")
+# 
+# 
 library(pheatmap)
 library(tidyverse)
 library(ggplot2)
@@ -18,6 +18,8 @@ library(factoextra)
 library(purrr)
 library(lme4)
 library(reshape2)
+library(tidyr)
+library(dplyr)
 
 
 
@@ -87,6 +89,7 @@ mov_show_data <- mov_show_data |>
   )
 )
 
+saveRDS(mov_show_data, file = "data/processed/mov_show_data.RDS")
 
 # Summarize: average normalized duration per country / genre / type
 avg_duration_summary <- mov_show_data %>%
