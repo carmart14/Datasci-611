@@ -5,8 +5,6 @@
 # ==============================================
 
 
-
-
 users_data <- readRDS(file = "data/processed/clean_user_data.rds")
 #
 # analysis of how age is related to genre within countries

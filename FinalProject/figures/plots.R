@@ -91,7 +91,7 @@ p5 <- ggplot(country_type_summary,
   ) +
   theme_minimal(base_size = 14)
 
-ggsave("figures/Average_media_rating_country.png", p5, width = 8, height = 8)
+ggsave("figures/average_media_rating_country.png", p5, width = 8, height = 8)
 
 
 p6 <- ggplot(country_genre_summary,
